@@ -15,9 +15,6 @@ A simple and interactive web application built with **Flask** that displays rand
 - **APIs:** ZenQuotes, JokeAPI
 - **Libraries:** Bootstrap, Animate.css
 
-## 💻 Screenshots
-![Screenshot](Screenshot 2026-02-06 171652.png)  
-
 ## 🔧 Installation & Usage
 
 1. Clone the repository:
