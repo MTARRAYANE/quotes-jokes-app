@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quotes & Jokes</title>
+  
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  
+  <!-- Animate.css -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  
+  <style>
+    body {
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    .container {
+      background: white;
+      padding: 2rem 3rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      max-width: 500px;
+      text-align: center;
+    }
+    button {
+      margin: 0.5rem;
+    }
+    #result {
+      min-height: 100px;
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container animate__animated animate__fadeIn">
+    <h1 class="mb-4">Quotes & Jokes</h1>
+    
+    <button
+      id="quoteBtn"
+      class="btn btn-primary btn-lg"
+      onclick="getQuote()"
+    >
+      Get Quote
+    </button>
+    <button
+      id="jokeBtn"
+      class="btn btn-success btn-lg"
+      onclick="getJoke()"
+    >
+      Get Joke
+    </button>
+    
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function animateResult() {
+      const el = document.getElementById('result');
+      el.classList.remove('animate__fadeIn');
+      void el.offsetWidth; // trigger reflow
+      el.classList.add('animate__fadeIn');
+    }
+
+    function getQuote() {
+      fetch('/quotes')
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById('result').innerHTML = `
+            <p>"${data.quote}"<br><strong>- ${data.author}</strong></p>
+          `;
+          animateResult();
+        })
+        .catch(() => {
+          document.getElementById('result').innerHTML =
+            'Something went wrong. Please try again.';
+        });
+    }
+
+    function getJoke() {
+      fetch('/jokes')
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById('result').innerHTML = `<p>${data.joke}</p>`;
+          animateResult();
+        })
+        .catch(() => {
+          document.getElementById('result').innerHTML =
+            'Something went wrong. Please try again.';
+        });
+    }
+  </script>
+</body>
+</html>
